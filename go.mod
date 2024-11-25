@@ -1,4 +1,4 @@
-module github.com/pijng/go-otel-autoinstrument
+module github.com/pijng/go-otel-auto-instrument
 
 go 1.23.0
 

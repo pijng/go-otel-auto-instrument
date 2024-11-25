@@ -1,4 +1,4 @@
-package gootelinstrument
+package gootelautoinstrument
 
 import (
 	"context"
