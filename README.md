@@ -1,85 +1,52 @@
-# moonjectlog
-Inject fmt.Println at the beginning of each function call.
+# go_otel_auto_instrument
 
-### Usage
+`go_otel_auto_instrument` let's you automatically instrument your Go code with Opentelemtry.
 
-1. Install `moonjectlog` with:
+## Installation
 
-```bash
-go install github.com/pijng/moonjectlog@latest
-```
+### 1. Install the `go-otel-auto-instrument` executable
 
-2. Build your project with `go build` while specifying moonjectlog preprocessor:
+To use `go-otel-auto-instrument` in your build process, install it as a binary executable:
 
 ```bash
-go build -o output -a -toolexec="moonjectlog <absolute/path/to/project>" main.go
+go install github.com/pijng/go_otel_auto_instrument/cmd/go-otel-auto-instrument@latest
 ```
 
-**Important:**
-  * `-a` flag is required to recompile all your project, otherwise go compiler might do nothing and use cached build
-  * `<absolute/path/to/project>` is and absolute path to the root of your project. If you run `go build` from the root – simply specify `$PWD` as an argument.
+### 2. Add `go_otel_auto_instrument` as a dependency
 
-3. Run the final binary:
+To use the `go_otel_auto_instrument` library in your Go project, add it via Go modules:
 
 ```bash
-./output
+go get github.com/pijng/go_otel_auto_instrument
+go mod tidy
 ```
 
-### Demonstration
+## Usage
 
-Suppose we have this code:
+### Add blank import to main package
 
 ```go
 package main
 
-import "fmt"
-
-func main() {
-	fmt.Println(someWork())
-	fmt.Println(anotherWork())
-	fmt.Println(finalWork())
-
-	fmt.Println("End of main")
-}
-
-func someWork() int {
-	return 1
-}
-
-func anotherWork() int {
-	return 2
-}
-
-func finalWork() int {
-	return 3
-}
+import (
+  _ "github.com/pijng/go_otel_auto_instrument"
+)
 ```
 
-If we compile and run it, we get the expected output:
+### Building with `go-otel-auto-instrument`
+
+To automatically instrument your Go code run the command:
 
 ```bash
-$ go build main.go
-$ ./main
-1
-2
-3
-End of main
-$
+go build -a -toolexec="go-otel-auto-instrument <absolute/path/to/project>" main.go
 ```
 
-But if we apply `moonjectlog` as a preprocessor at compile time, we get the following result:
+**Important:**
+  * `-a` flag is required to recompile all your project, otherwise go compiler might do nothing and use cached build
+  * `<absolute/path/to/project>` is an absolute path to the root of your project. If you run `go build` from the root of the project – simply specify `$PWD` as an argument.
+
+### Run the final binary and specify OTEL_* env variables:
 
 ```bash
-$ go build -a -toolexec="moonjectlog $PWD" main.go
-$ ./main
-Calling [main] func
-Calling [someWork] func
-1
-Calling [anotherWork] func
-2
-Calling [finalWork] func
-3
-End of main
-$
+OTEL_SERVICE_NAME="My Service" OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 ./main
 ```
-Thus, the preprocessor added a call to `fmt.Println("Calling [%s] func")` to the body of each function, while the source code remained unchanged.

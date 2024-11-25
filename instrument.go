@@ -1,4 +1,4 @@
-package gootelautoinstrument
+package go_otel_auto_instrument
 
 import (
 	"context"

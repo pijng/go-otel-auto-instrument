@@ -59,11 +59,6 @@ func main() {
 	goinject.Process(autoinstrumentModifier{})
 }
 
-// span := StartSpan("main")
-// defer() {
-//   span.End()
-// }()
-
 func buildSpan(funcName string, contextArgName string) dst.BlockStmt {
 	spanFunc := "StartSpan"
 	if contextArgName != "" {
@@ -82,10 +77,10 @@ func buildSpan(funcName string, contextArgName string) dst.BlockStmt {
 	if newCtxName == "" {
 		newCtxName = "_"
 	}
-	oldCtxName := "goa_oldCtx"
+	oldCtxName := "goai_oldCtx"
 	lhs = append(lhs, &dst.Ident{Name: newCtxName})
 	lhs = append(lhs, &dst.Ident{Name: oldCtxName})
-	lhs = append(lhs, &dst.Ident{Name: "goa_Span"})
+	lhs = append(lhs, &dst.Ident{Name: "goai_Span"})
 
 	return dst.BlockStmt{
 		List: []dst.Stmt{
@@ -95,7 +90,7 @@ func buildSpan(funcName string, contextArgName string) dst.BlockStmt {
 				Tok: token.DEFINE, // :=
 				Rhs: []dst.Expr{
 					&dst.CallExpr{
-						Fun:  &dst.Ident{Path: "github.com/pijng/gootelautoinstrument", Name: spanFunc},
+						Fun:  &dst.Ident{Path: "github.com/pijng/go_otel_auto_instrument", Name: spanFunc},
 						Args: args,
 					},
 				},
@@ -112,17 +107,14 @@ func buildSpan(funcName string, contextArgName string) dst.BlockStmt {
 								&dst.ExprStmt{
 									X: &dst.CallExpr{
 										Fun: &dst.SelectorExpr{
-											X:   &dst.Ident{Name: "goa_Span"},
+											X:   &dst.Ident{Name: "goai_Span"},
 											Sel: &dst.Ident{Name: "End"},
 										},
 									},
 								},
 								&dst.ExprStmt{
 									X: &dst.CallExpr{
-										Fun: &dst.SelectorExpr{
-											X:   &dst.Ident{Name: "gootelautoinstrument"},
-											Sel: &dst.Ident{Name: "SetContext"},
-										},
+										Fun: &dst.Ident{Path: "github.com/pijng/go_otel_auto_instrument", Name: "SetContext"},
 										Args: []dst.Expr{
 											&dst.Ident{Name: oldCtxName},
 										},
