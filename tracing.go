@@ -13,9 +13,8 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
 )
 
-func setupTracerProvider(endpoint string) error {
+func setupTracerProvider(serviceName string) error {
 	client := otlptracehttp.NewClient(
-		otlptracehttp.WithEndpoint(endpoint),
 		otlptracehttp.WithInsecure(),
 	)
 
@@ -25,10 +24,10 @@ func setupTracerProvider(endpoint string) error {
 	}
 
 	provider := sdk_trace.NewTracerProvider(
-		sdk_trace.WithSyncer(exporter),
+		sdk_trace.WithBatcher(exporter),
 		sdk_trace.WithResource(resource.NewWithAttributes(
 			semconv.SchemaURL,
-			semconv.ServiceNameKey.String("moonlogs"),
+			semconv.ServiceNameKey.String(serviceName),
 		)),
 	)
 
