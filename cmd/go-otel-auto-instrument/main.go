@@ -95,7 +95,7 @@ func buildSpan(funcName string, contextArgName string) dst.BlockStmt {
 				Tok: token.DEFINE, // :=
 				Rhs: []dst.Expr{
 					&dst.CallExpr{
-						Fun:  &dst.Ident{Path: "github.com/pijng/gootelinstrument", Name: spanFunc},
+						Fun:  &dst.Ident{Path: "github.com/pijng/gootelautoinstrument", Name: spanFunc},
 						Args: args,
 					},
 				},
@@ -120,7 +120,7 @@ func buildSpan(funcName string, contextArgName string) dst.BlockStmt {
 								&dst.ExprStmt{
 									X: &dst.CallExpr{
 										Fun: &dst.SelectorExpr{
-											X:   &dst.Ident{Name: "gootelinstrument"},
+											X:   &dst.Ident{Name: "gootelautoinstrument"},
 											Sel: &dst.Ident{Name: "SetContext"},
 										},
 										Args: []dst.Expr{
