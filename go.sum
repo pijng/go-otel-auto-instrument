@@ -19,8 +19,8 @@ github.com/grpc-ecosystem/grpc-gateway/v2 v2.23.0 h1:ad0vkEBuk23VJzZR9nkLVG0YAoN
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.23.0/go.mod h1:igFoXX2ELCW06bol23DWPB5BEWfZISOzSP5K2sbLea0=
 github.com/pijng/gls v0.0.2 h1:EaSxMl3cjBlVOB9c6vKHZ9X41KWvQkqToMtA4Bpurr8=
 github.com/pijng/gls v0.0.2/go.mod h1:i1wXDFCamtVqOeSWYe7py71ZlLaVRjf9Pcjh46R1foo=
-github.com/pijng/goinject v0.0.22 h1:LwLCOjIy+xYdeWR8/RN8v9z1YsKBOM3S7t+dfINrj/I=
-github.com/pijng/goinject v0.0.22/go.mod h1:4VThjXyLl3Uzg9BIlQYCs4RrTmhmh1n3Tp5xxB1z63c=
+github.com/pijng/goinject v0.0.23 h1:I+o0FidRZQEw12FyNvqnnvzdbLh2GnAU7Dt7Zfj3SkY=
+github.com/pijng/goinject v0.0.23/go.mod h1:4VThjXyLl3Uzg9BIlQYCs4RrTmhmh1n3Tp5xxB1z63c=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/sergi/go-diff v1.2.0 h1:XU+rvMAioB0UC3q1MFrIQy4Vo5/4VsRDQQXHsEya6xQ=
