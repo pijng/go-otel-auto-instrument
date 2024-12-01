@@ -38,12 +38,8 @@ import (
 To automatically instrument your Go code run the command:
 
 ```bash
-go build -a -toolexec="go-otel-auto-instrument <absolute/path/to/project>" main.go
+go build -a -toolexec="go-otel-auto-instrument" main.go
 ```
-
-**Important:**
-  * `-a` flag is required to recompile all your project, otherwise go compiler might do nothing and use cached build
-  * `<absolute/path/to/project>` is an absolute path to the root of your project. If you run `go build` from the root of the project – simply specify `$PWD` as an argument.
 
 ### Run the final binary and specify OTEL_* env variables:
 

@@ -26,17 +26,17 @@ func (mm autoinstrumentModifier) Modify(f *dst.File, dec *decorator.Decorator, r
 		}
 
 		var contextArgName string
-		// for _, param := range funcDecl.Type.Params.List {
-		// 	paramIdent, isIdent := param.Type.(*dst.Ident)
-		// 	if !isIdent {
-		// 		continue
-		// 	}
+		for _, param := range funcDecl.Type.Params.List {
+			paramIdent, isIdent := param.Type.(*dst.Ident)
+			if !isIdent {
+				continue
+			}
 
-		// 	if paramIdent.Path == "context" && paramIdent.Name == "Context" && param.Names[0].Name != "_" {
-		// 		contextArgName = param.Names[0].Name
-		// 		break
-		// 	}
-		// }
+			if paramIdent.Path == "context" && paramIdent.Name == "Context" && param.Names[0].Name != "_" {
+				contextArgName = param.Names[0].Name
+				break
+			}
+		}
 
 		for _, param := range funcDecl.Type.Params.List {
 			starExpr, isPointer := param.Type.(*dst.StarExpr)
