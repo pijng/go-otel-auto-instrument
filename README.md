@@ -38,7 +38,7 @@ import (
 To automatically instrument your Go code run the command:
 
 ```bash
-go build -a -toolexec="go-otel-auto-instrument" main.go
+go build -toolexec="go-otel-auto-instrument" main.go
 ```
 
 ### Run the final binary and specify OTEL_* env variables:

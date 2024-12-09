@@ -5,7 +5,7 @@ go 1.23.0
 require (
 	github.com/dave/dst v0.27.3
 	github.com/pijng/gls v0.0.2
-	github.com/pijng/goinject v0.0.24
+	github.com/pijng/goinject v0.0.25
 	go.opentelemetry.io/otel v1.32.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.32.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.32.0
