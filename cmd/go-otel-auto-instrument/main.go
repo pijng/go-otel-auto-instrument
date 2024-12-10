@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 	"go/token"
+	"os"
 	"strconv"
 	"strings"
+	"time"
 
+	"github.com/charmbracelet/log"
 	"github.com/dave/dst"
 	"github.com/dave/dst/decorator"
 	"github.com/pijng/goinject"
@@ -15,6 +18,8 @@ import (
 // The current offset value MUST equal the number of lines added by the instrumentation + 1.
 // The calculated value will then be used as a /*line */ directive.
 const lnOffset = 5 + 1
+
+const toolName = "go-otel-auto-instrument"
 
 type autoinstrumentModifier struct{}
 
@@ -70,7 +75,13 @@ func (mm autoinstrumentModifier) Modify(f *dst.File, dec *decorator.Decorator, r
 }
 
 func main() {
-	goinject.Process(autoinstrumentModifier{})
+	logger := log.NewWithOptions(os.Stderr, log.Options{
+		ReportTimestamp: true,
+		TimeFormat:      time.Kitchen,
+		Prefix:          toolName,
+	})
+
+	goinject.Process(autoinstrumentModifier{}, goinject.WithLogger(logger))
 }
 
 func buildSpan(funcName string, contextArgName string) dst.BlockStmt {
